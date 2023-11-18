@@ -23,10 +23,17 @@ public class MarketChannelComboCatalog {
    
    public MarketChannelAssignment newMarketChannelCombo(Market m, Channel c){
        MarketChannelAssignment mcc = new MarketChannelAssignment(m, c);
-       mcalist.add(mcc);
-       return mcc;
+       for(MarketChannelAssignment marketChannelAssignment : this.mcalist)
+            if(marketChannelAssignment.channel==c && marketChannelAssignment.market==m)
+            {
+                   return null;
+            }
+             
+         mcalist.add(mcc);    
+         return mcc;
        
    }
+
    public MarketChannelAssignment finMarketChannelCombo(Market m, Channel c){
        
        for( MarketChannelAssignment mca: mcalist){

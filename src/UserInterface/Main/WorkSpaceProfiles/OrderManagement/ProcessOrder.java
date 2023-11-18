@@ -16,7 +16,9 @@ import TheBusiness.ProductManagement.ProductCatalog;
 import TheBusiness.ProductManagement.ProductSummary;
 import TheBusiness.SalesManagement.SalesPersonProfile;
 import TheBusiness.Supplier.Supplier;
+import java.awt.CardLayout;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -29,24 +31,29 @@ public class ProcessOrder extends javax.swing.JPanel {
     /**
      * Creates new form ManageSuppliersJPanel
      */
-    JPanel CardSequencePanel;
+    //JPanel CardSequencePanel;
+    JPanel userProcessContainer;
     Business business;
     Supplier selectedsupplier;
     Product selectedproduct;
     Order currentOrder;
     CustomerProfile customer;
     SalesPersonProfile salesperson;
+    MasterOrderList mol;
 
-    public ProcessOrder(Business bz, CustomerProfile cp, SalesPersonProfile spp, JPanel jp) {
+    public ProcessOrder(Business bz, SalesPersonProfile spp, JPanel userProcessContainer,CustomerProfile cp) {
 
-        CardSequencePanel = jp;
+        this.userProcessContainer = userProcessContainer;
         this.business = bz;
         initComponents();
+       
         customer = cp;
         salesperson = spp;
         salesPersonTextField.setText(salesperson.getPerson().toString());
+        salesPersonTextField.setEditable(false);
         customerTextField.setText(customer.getCustomerId());
-        MasterOrderList mol = business.getMasterOrderList();
+        customerTextField.setEditable(false);
+        mol = business.getMasterOrderList();
         currentOrder =  mol.newOrder(customer, salesperson); //no order was made yet
         initializeTable();
 
@@ -80,7 +87,7 @@ public class ProcessOrder extends javax.swing.JPanel {
                 row[2] = pt.getCeilingPrice();
                 row[3] = pt.getTargetPrice();
 
-                ((DefaultTableModel) SupplierCatalogTable.getModel()).addRow(row);
+                ((DefaultTableModel) tblProduct.getModel()).addRow(row);
             }
 
         }
@@ -96,10 +103,10 @@ public class ProcessOrder extends javax.swing.JPanel {
     public void cleanUpTable() {
 
         //Clean the product catalog table
-        int rc = SupplierCatalogTable.getRowCount();
+        int rc = tblProduct.getRowCount();
         int i;
         for (i = rc - 1; i >= 0; i--) {
-            ((DefaultTableModel) SupplierCatalogTable.getModel()).removeRow(i);
+            ((DefaultTableModel) tblProduct.getModel()).removeRow(i);
         }
     }
     public void cleanUpItemsTable() {
@@ -115,10 +122,10 @@ public class ProcessOrder extends javax.swing.JPanel {
     public void refreshSupplierProductCatalogTable() {
 
 //clear supplier table
-        int rc = SupplierCatalogTable.getRowCount();
+        int rc = tblProduct.getRowCount();
         int i;
         for (i = rc - 1; i >= 0; i--) {
-            ((DefaultTableModel) SupplierCatalogTable.getModel()).removeRow(i);
+            ((DefaultTableModel) tblProduct.getModel()).removeRow(i);
         }
 
         String suppliername = (String) SuppliersComboBox.getSelectedItem();
@@ -138,9 +145,22 @@ public class ProcessOrder extends javax.swing.JPanel {
             row[3] = pt.getTargetPrice();
 //                row[1] = pt.getPerformanceMeasure();
 //               row[2] = la.getName();
-            ((DefaultTableModel) SupplierCatalogTable.getModel()).addRow(row);
+            ((DefaultTableModel) tblProduct.getModel()).addRow(row);
         }
 
+    }
+     private void populateProductItemTable() {
+        DefaultTableModel model = (DefaultTableModel) OrderItemsTable.getModel();
+        model.setRowCount(0);
+
+        for (OrderItem oi : currentOrder.getOrderitems()) {
+            Object row[] = new Object[4];
+            row[0] = oi;
+            row[1] = oi.getActualPrice();
+            row[2] = oi.getQuantity();
+            row[3] = oi.getQuantity() * oi.getActualPrice();
+            model.addRow(row);
+        }
     }
 
     /**
@@ -155,16 +175,10 @@ public class ProcessOrder extends javax.swing.JPanel {
         Back = new javax.swing.JButton();
         Next = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        SupplierCatalogTable = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        OrderItemsTable = new javax.swing.JTable();
         jLabel9 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnAdd = new javax.swing.JButton();
         SuppliersComboBox = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         customerTextField = new javax.swing.JTextField();
@@ -181,6 +195,16 @@ public class ProcessOrder extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         productNameTextField = new javax.swing.JTextField();
+        btnBack = new javax.swing.JButton();
+        lblSalesPrice = new javax.swing.JLabel();
+        txtSalesPrice = new javax.swing.JTextField();
+        lblQuantity = new javax.swing.JLabel();
+        spnQuantity = new javax.swing.JSpinner();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblProduct = new javax.swing.JTable();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        OrderItemsTable = new javax.swing.JTable();
+        btnRemoveOrderItem = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(0, 153, 153));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -193,49 +217,16 @@ public class ProcessOrder extends javax.swing.JPanel {
         });
         add(Back, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 480, 80, -1));
 
-        Next.setText("Submit");
+        Next.setText("Order Item");
         Next.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NextActionPerformed(evt);
             }
         });
-        add(Next, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 440, 80, -1));
+        add(Next, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 360, 110, -1));
 
         jLabel1.setText("Suppliers");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 60, -1));
-
-        SupplierCatalogTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Name", "Floor", "Ceiling", "Target"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, true, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        SupplierCatalogTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                SupplierCatalogTableMouseEntered(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                SupplierCatalogTableMousePressed(evt);
-            }
-        });
-        jScrollPane1.setViewportView(SupplierCatalogTable);
-
-        jScrollPane2.setViewportView(jScrollPane1);
-
-        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 600, 110));
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         jLabel2.setText("Prepare Order");
@@ -244,46 +235,16 @@ public class ProcessOrder extends javax.swing.JPanel {
         jLabel8.setText("Product");
         add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, 20));
 
-        OrderItemsTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Product", "Actual price", "Quanity", "Item total"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        OrderItemsTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                OrderItemsTableMouseEntered(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                OrderItemsTableMousePressed(evt);
-            }
-        });
-        jScrollPane4.setViewportView(OrderItemsTable);
-
-        jScrollPane3.setViewportView(jScrollPane4);
-
-        add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 600, 100));
-
         jLabel9.setText("Order Items");
-        add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, -1, 20));
+        add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, 20));
 
-        jButton1.setText("Add");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAdd.setText("Add");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AddProductItemActionPerformed(evt);
             }
         });
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 130, 90, 30));
+        add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 130, 90, 30));
 
         SuppliersComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -294,6 +255,12 @@ public class ProcessOrder extends javax.swing.JPanel {
 
         jLabel10.setText("Customer");
         add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, 150, -1));
+
+        customerTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                customerTextFieldActionPerformed(evt);
+            }
+        });
         add(customerTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 70, 160, -1));
         add(salesPersonTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 70, 160, -1));
 
@@ -341,50 +308,124 @@ public class ProcessOrder extends javax.swing.JPanel {
         });
         jPanel1.add(productNameTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 150, -1));
 
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, 600, 170));
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, 600, 170));
         jPanel1.getAccessibleContext().setAccessibleName("Business -wide Product Intelligence");
+
+        btnBack.setText("<< Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+        add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 570, -1, -1));
+
+        lblSalesPrice.setText("Sales Price:");
+        add(lblSalesPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 250, -1, 20));
+
+        txtSalesPrice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSalesPriceActionPerformed(evt);
+            }
+        });
+        add(txtSalesPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 250, 70, -1));
+
+        lblQuantity.setText("Quantity:");
+        add(lblQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 250, -1, -1));
+
+        spnQuantity.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        add(spnQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 250, -1, -1));
+
+        tblProduct.setFont(new java.awt.Font("Lucida Grande", 0, 13)); // NOI18N
+        tblProduct.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Name", "Floor", "Ceiling", "Target"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblProduct.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tblProductMousePressed(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblProduct);
+
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 570, 110));
+
+        OrderItemsTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Product", "Actual price", "Quanity", "Item total"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        OrderItemsTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                OrderItemsTableMouseEntered(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                OrderItemsTableMousePressed(evt);
+            }
+        });
+        jScrollPane4.setViewportView(OrderItemsTable);
+
+        add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 588, 110));
+
+        btnRemoveOrderItem.setText("Remove Item");
+        btnRemoveOrderItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveOrderItemActionPerformed(evt);
+            }
+        });
+        add(btnRemoveOrderItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 320, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void BackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackActionPerformed
         // TODO add your handling code here:
-        currentOrder.CancelOrder();
-        CardSequencePanel.remove(this);
-        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+//        currentOrder.CancelOrder();
+//        CardSequencePanel.remove(this);
+//        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
 
     }//GEN-LAST:event_BackActionPerformed
 
     private void NextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NextActionPerformed
         // TODO add your handling code here:
-        currentOrder.Submit();
-        CardSequencePanel.remove(this);
-        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+        
+        mol.AddNewOrder(currentOrder);
+        JOptionPane.showMessageDialog(this, "Order placed successfully");
 
+        cleanUpItemsTable();
+        txtSalesPrice.setText("");
+        spnQuantity.setValue(0);
+        
+        
+//        currentOrder.Submit();
+//        CardSequencePanel.remove(this);
+//        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+        
 
     }//GEN-LAST:event_NextActionPerformed
-
-    private void SupplierCatalogTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SupplierCatalogTableMousePressed
-        // TODO add your handling code here:
-        int suppliertablesize = SupplierCatalogTable.getRowCount();
-        int selectedrow = SupplierCatalogTable.getSelectionModel().getLeadSelectionIndex();
-
-        if (selectedrow < 0 || selectedrow > suppliertablesize - 1) {
-            return;
-        }
-        selectedproduct = (Product) SupplierCatalogTable.getValueAt(selectedrow, 0);
-        if (selectedproduct == null) {
-            return;
-        }
-
-        ProductSummary productsummary = new ProductSummary(selectedproduct);
-
-        productNameTextField.setText(selectedproduct.toString());
-        String revenues = String.valueOf(productsummary.getSalesRevenues());
-        productRevenueTextField.setText(revenues);
-        productFrequencyAboveTargetTextField.setText(String.valueOf(productsummary.getNumberAboveTarget()));
-        productFrequencyBelowTargetTextField.setText(String.valueOf(productsummary.getNumberBelowTarget()));
-        productPricePerformanceTextField.setText(String.valueOf(productsummary.getProductPricePerformance()));
-
-    }//GEN-LAST:event_SupplierCatalogTableMousePressed
 
     private void productNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productNameTextFieldActionPerformed
         // TODO add your handling code here:
@@ -398,10 +439,6 @@ public class ProcessOrder extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_productPricePerformanceTextFieldActionPerformed
 
-    private void SupplierCatalogTableMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SupplierCatalogTableMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SupplierCatalogTableMouseEntered
-
     private void OrderItemsTableMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OrderItemsTableMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_OrderItemsTableMouseEntered
@@ -413,26 +450,46 @@ public class ProcessOrder extends javax.swing.JPanel {
     private void AddProductItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddProductItemActionPerformed
         // TODO add your handling code here:
 
-        int suppliertablesize = SupplierCatalogTable.getRowCount();
-        int selectedrow = SupplierCatalogTable.getSelectionModel().getLeadSelectionIndex();
+        int suppliertablesize = tblProduct.getRowCount();
+        int selectedrow = tblProduct.getSelectionModel().getLeadSelectionIndex();
 
         if (selectedrow < 0 || selectedrow > suppliertablesize - 1) {
+         JOptionPane.showMessageDialog(this, "Please select the product first.");
+         return;
+        }
+        selectedproduct = (Product) tblProduct.getValueAt(selectedrow, 0);
+        int salesPrice = 0;
+        int quant = 0;
+        try {
+            salesPrice = Integer.parseInt(txtSalesPrice.getText());
+            quant = (Integer) spnQuantity.getValue();
+        } catch (Exception e) {
+            
+            JOptionPane.showMessageDialog(this, "Please check the price and quantity fields.");
             return;
         }
-        selectedproduct = (Product) SupplierCatalogTable.getValueAt(selectedrow, 0);
-        if (selectedproduct == null) return;
+                
+        if (salesPrice < selectedproduct.getFloorPrice() || salesPrice > selectedproduct.getCeilingPrice() || quant == 0) {
+            JOptionPane.showMessageDialog(this, "Price should be more than floor price and less the ceiling price and Quantity should not be zero");
+            return;
+        }
         
-        OrderItem item = currentOrder.newOrderItem(selectedproduct, 1000, 1);
-            Object[] row = new Object[5];
+        else{
+        
+        OrderItem item = currentOrder.newOrderItem(selectedproduct, salesPrice, quant);
+        selectedproduct.addOrderItem(item);
+            Object[] row = new Object[4];
 
-            row[0] = String.valueOf(item.getSelectedProduct());
+            row[0] = item;
             row[1] = String.valueOf(item.getActualPrice());
             row[2] = String.valueOf(item.getQuantity());
             row[3] = String.valueOf(item.getOrderItemTotal());
 
             ((DefaultTableModel) OrderItemsTable.getModel()).addRow(row);
- 
-            
+        }
+           
+ txtSalesPrice.setText("");
+        spnQuantity.setValue(0);
 
     }//GEN-LAST:event_AddProductItemActionPerformed
 
@@ -441,15 +498,73 @@ public class ProcessOrder extends javax.swing.JPanel {
      refreshSupplierProductCatalogTable();
     }//GEN-LAST:event_SuppliersComboBoxActionPerformed
 
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        userProcessContainer.remove(this);
+        ((CardLayout) userProcessContainer.getLayout()).previous(userProcessContainer);
+    }//GEN-LAST:event_btnBackActionPerformed
 
+    private void customerTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customerTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_customerTextFieldActionPerformed
+
+    private void txtSalesPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSalesPriceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSalesPriceActionPerformed
+
+    private void btnRemoveOrderItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveOrderItemActionPerformed
+        int selectedRowIndex = OrderItemsTable.getSelectedRow();
+        if (selectedRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Please select the order item first");
+        }
+        else
+        {
+            
+        OrderItem item = (OrderItem) OrderItemsTable.getValueAt(selectedRowIndex, 0);
+        Product selectedProduct = item.getSelectedProduct();
+        selectedProduct.removeOrderItem(item);
+        currentOrder.deleteItem(item);
+         JOptionPane.showMessageDialog(this, "Selected product deleted successfully");
+         populateProductItemTable();
+        }
+
+        
+    }//GEN-LAST:event_btnRemoveOrderItemActionPerformed
+
+    private void tblProductMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductMousePressed
+        // TODO add your handling code here:
+         int suppliertablesize = tblProduct.getRowCount();
+        int selectedrow = tblProduct.getSelectionModel().getLeadSelectionIndex();
+
+        if (selectedrow < 0 || selectedrow > suppliertablesize - 1) {
+            return;
+        }
+        selectedproduct = (Product) tblProduct.getValueAt(selectedrow, 0);
+        if (selectedproduct == null) {
+            return;
+        }
+
+        ProductSummary productsummary = new ProductSummary(selectedproduct);
+
+        productNameTextField.setText(selectedproduct.toString());
+        String revenues = String.valueOf(productsummary.getSalesRevenues());
+        productRevenueTextField.setText(revenues);
+        productFrequencyAboveTargetTextField.setText(String.valueOf(productsummary.getNumberAboveTarget()));
+        productFrequencyBelowTargetTextField.setText(String.valueOf(productsummary.getNumberBelowTarget()));
+        productPricePerformanceTextField.setText(String.valueOf(productsummary.getProductPricePerformance()));
+
+    }//GEN-LAST:event_tblProductMousePressed
+
+ 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Back;
     private javax.swing.JButton Next;
     private javax.swing.JTable OrderItemsTable;
-    private javax.swing.JTable SupplierCatalogTable;
     private javax.swing.JComboBox<String> SuppliersComboBox;
+    private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnRemoveOrderItem;
     private javax.swing.JTextField customerTextField;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -463,15 +578,18 @@ public class ProcessOrder extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JLabel lblQuantity;
+    private javax.swing.JLabel lblSalesPrice;
     private javax.swing.JTextField productFrequencyAboveTargetTextField;
     private javax.swing.JTextField productFrequencyBelowTargetTextField;
     private javax.swing.JTextField productNameTextField;
     private javax.swing.JTextField productPricePerformanceTextField;
     private javax.swing.JTextField productRevenueTextField;
     private javax.swing.JTextField salesPersonTextField;
+    private javax.swing.JSpinner spnQuantity;
+    private javax.swing.JTable tblProduct;
+    private javax.swing.JTextField txtSalesPrice;
     // End of variables declaration//GEN-END:variables
 
 }

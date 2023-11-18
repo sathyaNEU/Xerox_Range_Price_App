@@ -22,14 +22,12 @@ public class MasterOrderList {
         orders = new ArrayList();
        
     }
-    
-    public Order newOrder(CustomerProfile cp){
-        Order o= new Order(cp);
-        orders.add(o);
-        return o;
-            
- 
+    public void AddNewOrder(Order order){
+       
+        orders.add(order);
+  
     }
+    
     public Order newOrder(CustomerProfile cp, SalesPersonProfile spp){
         Order o= new Order(cp, spp);
         orders.add(o);

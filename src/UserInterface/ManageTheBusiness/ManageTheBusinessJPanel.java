@@ -7,8 +7,11 @@ package UserInterface.ManageTheBusiness;
 
 import UserInterface.ProductManagement.*;
 import TheBusiness.Business.Business;
+import TheBusiness.CustomerManagement.CustomerProfile;
+import TheBusiness.MarketModel.Market;
 import TheBusiness.ProductManagement.Product;
 import TheBusiness.Supplier.Supplier;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -29,9 +32,11 @@ public class ManageTheBusinessJPanel extends javax.swing.JPanel {
         CardSequencePanel = jp;
         this.business = bz;
         initComponents();
+        marketCombo();
+        custCombo();
+        populateTable();
 
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -46,6 +51,13 @@ public class ManageTheBusinessJPanel extends javax.swing.JPanel {
         Next = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        custBox = new javax.swing.JComboBox();
+        jLabel4 = new javax.swing.JLabel();
+        marketBox = new javax.swing.JComboBox();
+        addBtn = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        custTable = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(0, 153, 153));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -56,7 +68,7 @@ public class ManageTheBusinessJPanel extends javax.swing.JPanel {
                 BackActionPerformed(evt);
             }
         });
-        add(Back, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, -1));
+        add(Back, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, -1, -1));
 
         Next.setText("Next >>");
         Next.addActionListener(new java.awt.event.ActionListener() {
@@ -64,7 +76,7 @@ public class ManageTheBusinessJPanel extends javax.swing.JPanel {
                 NextActionPerformed(evt);
             }
         });
-        add(Next, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 260, 80, -1));
+        add(Next, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 430, 80, -1));
 
         jLabel1.setText("Business Name");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 190, -1));
@@ -72,6 +84,49 @@ public class ManageTheBusinessJPanel extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         jLabel2.setText("Manage The Business");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 20, 550, -1));
+
+        jLabel3.setText("CUSTOMERS");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 80, 110, 30));
+
+        custBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                custBoxActionPerformed(evt);
+            }
+        });
+        add(custBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 90, 160, -1));
+
+        jLabel4.setText("MARKET");
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 150, 80, -1));
+
+        marketBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                marketBoxActionPerformed(evt);
+            }
+        });
+        add(marketBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 140, 160, -1));
+
+        addBtn.setText("Add");
+        addBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addBtnActionPerformed(evt);
+            }
+        });
+        add(addBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 200, -1, -1));
+
+        custTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Customers", "Markets"
+            }
+        ));
+        jScrollPane1.setViewportView(custTable);
+
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, 520, 150));
     }// </editor-fold>//GEN-END:initComponents
 
     private void BackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackActionPerformed
@@ -83,19 +138,82 @@ public class ManageTheBusinessJPanel extends javax.swing.JPanel {
 
     private void NextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NextActionPerformed
         // TODO add your handling code here:
-        
+
         ManageBusinessDetail1 mppd = new ManageBusinessDetail1(business, CardSequencePanel);
         CardSequencePanel.add(mppd);
         ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
 
     }//GEN-LAST:event_NextActionPerformed
 
+    private void custBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_custBoxActionPerformed
+        // TODO add your handling code here:
+        //populateProductTable();
+    }//GEN-LAST:event_custBoxActionPerformed
 
+    private void marketBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_marketBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_marketBoxActionPerformed
+
+    private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
+        // TODO add your handling code here:
+        //Supplier supplier = (Supplier) cmbSupplier.getSelectedItem();
+        CustomerProfile customerProfile = (CustomerProfile) custBox.getSelectedItem();
+        Market m = (Market) marketBox.getSelectedItem();
+
+        boolean isExists = false;
+        for (Market market : customerProfile.getMarkets()) {
+            if (market.toString().equals(m.toString())) {
+                isExists = true;
+                JOptionPane.showMessageDialog(this, "Market already assigned", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+        }
+        if (isExists == false) {
+            customerProfile.addMarketToCustomer(m);
+        }
+    }//GEN-LAST:event_addBtnActionPerformed
+
+    private void marketCombo() {
+        marketBox.removeAllItems();
+        for (Market m : business.getMarketCatalog().getMarkets()) {
+            marketBox.addItem(m);
+        }
+    }
+
+    private void custCombo() {
+        custBox.removeAllItems();
+        for (CustomerProfile customerprofile : business.getCustomerDirectory().getCustomerlist()) {
+            custBox.addItem(customerprofile);
+        }
+
+    }
+
+    private void populateTable() {
+//        CustomerProfile customerProfile = (CustomerProfile) custBox.getSelectedItem();
+//          Market m = (Market) marketBox.getSelectedItem();
+//        DefaultTableModel dtm = (DefaultTableModel)custTable.getModel();
+//        dtm.setRowCount(0);
+//       for(CustomerProfile customerProfile:){
+//            Object[] obj = new Object[2];
+//            obj[0] = customerProfile;
+//            obj[1] = customerProfile.getMarkets();
+//            dtm.addRow(obj);
+//        }
+
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Back;
     private javax.swing.JButton Next;
+    private javax.swing.JButton addBtn;
+    private javax.swing.JComboBox custBox;
+    private javax.swing.JTable custTable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox marketBox;
     // End of variables declaration//GEN-END:variables
 
 }

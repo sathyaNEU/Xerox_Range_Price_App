@@ -28,6 +28,10 @@ public class CustomerProfile extends Profile {
         orders = new ArrayList();
 
     }
+
+    public ArrayList<Market> getMarkets() {
+        return markets;
+    }
     
     @Override
     public String getRole(){
@@ -70,8 +74,11 @@ public class CustomerProfile extends Profile {
         }
         return false;
     }
-
+public void addMarketToCustomer(Market market) {      
+        markets.add(market);
+}
     public void addCustomerOrder(Order o) {
+       
         orders.add(o);
     }
 

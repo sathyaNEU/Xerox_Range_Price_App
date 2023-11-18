@@ -21,4 +21,8 @@ public class Channel {
     public String getChannelType( ){
         return channeltype;
     }
+     @Override
+    public String toString() {
+        return channeltype; 
+    }
 }

@@ -15,6 +15,9 @@ import TheBusiness.CustomerManagement.CustomerProfile;
 import TheBusiness.SalesManagement.SalesPersonProfile;
 import UserInterface.Main.WorkSpaceProfiles.OrderManagement.ManageSalesPersonOrders;
 import UserInterface.Main.WorkSpaceProfiles.OrderManagement.ProcessOrder;
+import UserInterface.ManageTheBusiness.ManageChannelMarketJPanel;
+import UserInterface.Main.WorkSpaceProfiles.OrderManagement.ProcessOrderJPanel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -29,11 +32,11 @@ public class SalesPersonWorkAreaJPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form UnitRiskWorkArea
+     *
      * @param b
      * @param spp
      * @param clp
      */
-
     public SalesPersonWorkAreaJPanel(Business b, SalesPersonProfile spp, JPanel clp) {
 
         business = b;
@@ -52,7 +55,7 @@ public class SalesPersonWorkAreaJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton4 = new javax.swing.JButton();
+        btnServeCustomers = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
@@ -62,17 +65,17 @@ public class SalesPersonWorkAreaJPanel extends javax.swing.JPanel {
 
         setForeground(new java.awt.Color(51, 51, 51));
 
-        jButton4.setBackground(new java.awt.Color(102, 153, 255));
-        jButton4.setFont(getFont());
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Serve Customers");
-        jButton4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton4.setMaximumSize(new java.awt.Dimension(200, 40));
-        jButton4.setMinimumSize(new java.awt.Dimension(20, 23));
-        jButton4.setPreferredSize(new java.awt.Dimension(240, 30));
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnServeCustomers.setBackground(new java.awt.Color(102, 153, 255));
+        btnServeCustomers.setFont(getFont());
+        btnServeCustomers.setForeground(new java.awt.Color(255, 255, 255));
+        btnServeCustomers.setText("Serve Customers");
+        btnServeCustomers.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnServeCustomers.setMaximumSize(new java.awt.Dimension(200, 40));
+        btnServeCustomers.setMinimumSize(new java.awt.Dimension(20, 23));
+        btnServeCustomers.setPreferredSize(new java.awt.Dimension(240, 30));
+        btnServeCustomers.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4IdentifyResourceAssetsActionPerformed(evt);
+                btnServeCustomersIdentifyResourceAssetsActionPerformed(evt);
             }
         });
 
@@ -142,10 +145,9 @@ public class SalesPersonWorkAreaJPanel extends javax.swing.JPanel {
                 .addGap(101, 101, 101)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(customerNameTextField)
-                        .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
-                        .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)))
+                    .addComponent(customerNameTextField)
+                    .addComponent(btnServeCustomers, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                    .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE))
                 .addGap(75, 75, 75)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -163,7 +165,7 @@ public class SalesPersonWorkAreaJPanel extends javax.swing.JPanel {
                 .addComponent(customerNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnServeCustomers, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(56, 56, 56)
@@ -174,25 +176,36 @@ public class SalesPersonWorkAreaJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4IdentifyResourceAssetsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4IdentifyResourceAssetsActionPerformed
-        
+    private void btnServeCustomersIdentifyResourceAssetsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnServeCustomersIdentifyResourceAssetsActionPerformed
+
 // TODO add your handling code here:
-
- 
         String customername = customerNameTextField.getText();
-        if (customername.isEmpty()) return;
-        CustomerProfile selectedcustomer = business.getCustomerDirectory().findCustomer(customername);
+//        if (customername.isEmpty()) return;
+        if (customername.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter customer name.", "ERROR", JOptionPane.ERROR_MESSAGE);
 
-        ProcessOrder aos = new ProcessOrder(business, selectedcustomer ,salesperson, CardSequencePanel);
+        } else {
+            CustomerProfile selectedcustomer = business.getCustomerDirectory().findCustomer(customername);
 
-        CardSequencePanel.add("ManageVulns", aos);
-        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+//        ProcessOrder aos = new ProcessOrder(business, selectedcustomer ,salesperson, CardSequencePanel);
+//
+//        CardSequencePanel.add("ManageVulns", aos);
+//        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+            ProcessOrderJPanel processOrderJPanel = new ProcessOrderJPanel(business, selectedcustomer, salesperson, CardSequencePanel);
 
-    }//GEN-LAST:event_jButton4IdentifyResourceAssetsActionPerformed
+            CardSequencePanel.add("ProcessOrderJPanel", processOrderJPanel);
+            ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+        }
+
+//ProcessOrder processOrder = new ProcessOrder(business,salesperson, CardSequencePanel);
+//
+//        CardSequencePanel.add("ProcessOrder", processOrder);
+//       ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+
+    }//GEN-LAST:event_btnServeCustomersIdentifyResourceAssetsActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
-
 
 //        ManageVulns aos = new  ManageVulns(businessunit, CardSequencePanel);
         // aos.setAgenda(businessunit.getRiskManagementAgenda());
@@ -233,10 +246,10 @@ public class SalesPersonWorkAreaJPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnServeCustomers;
     private javax.swing.JTextField customerNameTextField;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;

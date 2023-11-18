@@ -5,10 +5,8 @@
  */
 package TheBusiness.CustomerManagement;
 
-import TheBusiness.MarketModel.Channel;
 import java.util.ArrayList;
 import TheBusiness.MarketModel.Market;
-import TheBusiness.MarketModel.MarketChannelComboCatalog;
 import TheBusiness.OrderManagement.Order;
 import TheBusiness.Personnel.Person;
 import TheBusiness.Personnel.Profile;
@@ -20,16 +18,20 @@ import TheBusiness.Personnel.Profile;
 public class CustomerProfile extends Profile {
 
     ArrayList<Order> orders;
-    ArrayList<Market> markets; // markets
-    Channel channel; // one channel
-    MarketChannelComboCatalog mccc; //map all markets with one chanel
+    ArrayList<Market> markets;
+
     Person person;
 
     public CustomerProfile(Person p) {
         super(p);
         person = p;
         orders = new ArrayList();
+        markets = new ArrayList<>();
 
+    }
+
+    public ArrayList<Market> getMarkets() {
+        return markets;
     }
     
     @Override
@@ -73,8 +75,11 @@ public class CustomerProfile extends Profile {
         }
         return false;
     }
-
+public void addMarketToCustomer(Market market) {      
+        markets.add(market);
+}
     public void addCustomerOrder(Order o) {
+       
         orders.add(o);
     }
 

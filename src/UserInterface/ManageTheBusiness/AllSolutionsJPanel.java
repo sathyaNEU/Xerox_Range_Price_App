@@ -174,7 +174,6 @@ public class AllSolutionsJPanel extends javax.swing.JPanel {
            return;
        }
        else{
-           System.out.println("size : "+mca.getSolutionofferlist().size());
            for(SolutionOffer solutionOffer : this.mca.getSolutionofferlist()){
            Object[] obj = new Object[2];
            obj[0] = solutionOffer;

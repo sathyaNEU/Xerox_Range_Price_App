@@ -14,6 +14,9 @@ import java.util.ArrayList;
 public class SupplierDirectory {
     ArrayList<Supplier> supplierList;
 
+    public ArrayList<Supplier> getSupplierList() {
+        return supplierList;
+    }
     public SupplierDirectory(){
         supplierList = new ArrayList();
     }

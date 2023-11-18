@@ -30,17 +30,17 @@ public class MarketChannelAssignment {
 
     }
     public void addSolutionOffer(SolutionOffer soffer){
-            solutionofferlist.add(soffer);
+        
+        solutionofferlist.add(soffer);
         
     }    
-
-    public ArrayList<SolutionOffer> getSolutionofferlist() {
-        return solutionofferlist;
-    }
     public void addSolutionOrder(SolutionOrder so){
         
         solutionorderlist.add(so);
         
+    }
+        public ArrayList<SolutionOffer> getSolutionofferlist() {
+        return solutionofferlist;
     }
     
     public int getRevenues(){
@@ -86,7 +86,6 @@ public class MarketChannelAssignment {
         }
         return false;
     }
-    
     @Override
     public String toString(){
         String market_str = this.market.toString().substring(0,1).toUpperCase()+this.market.toString().substring(1).toLowerCase();

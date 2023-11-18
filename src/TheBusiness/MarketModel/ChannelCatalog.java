@@ -16,15 +16,9 @@ public class ChannelCatalog {
     public ChannelCatalog(){
     channellist = new ArrayList();
     }
-
     public ArrayList<Channel> getChannellist() {
         return channellist;
     }
-
-    public void setChannellist(ArrayList<Channel> channellist) {
-        this.channellist = channellist;
-    }
-    
     public Channel newChannel(String type){
         
         Channel c = new Channel(type);

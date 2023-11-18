@@ -17,6 +17,10 @@ public class MarketCatalog {
     ArrayList<Market> markets;
     // constructor  MarketCatalog 
 
+    public ArrayList<Market> getMarkets() {
+        return markets;
+    }
+
     public MarketCatalog() {
 
         markets = new ArrayList();

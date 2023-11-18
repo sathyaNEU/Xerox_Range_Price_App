@@ -71,7 +71,7 @@ public class ConfigureBusiness {
         Person xeroxadminperson001 = persondirectory.newPerson("Xerox admin");
 
 // Create person objects to represent customer organizations. 
-        String file_path="src\\ALL_CSV\\CUSTOMERS.csv";
+        String file_path="src//ALL_CSV//CUSTOMERS.csv";
         BufferedReader file_content = null;
         String currentLine="";
         try{
@@ -125,7 +125,7 @@ public class ConfigureBusiness {
 
         Supplier supplier1 = suplierdirectory.newSupplier("Lenovo");
         ProductCatalog productcatalog = supplier1.getProductCatalog();
-        file_path = "src\\ALL_CSV\\LENEVO_products.csv";
+        file_path = "src//ALL_CSV//LENEVO_products.csv";
         currentLine="";
         String n;
         int fp; 
@@ -169,7 +169,7 @@ public class ConfigureBusiness {
         
         Supplier supplier2 = suplierdirectory.newSupplier("Epson");
         productcatalog = supplier2.getProductCatalog();
-        file_path = "src\\ALL_CSV\\EPSON_products.csv";
+        file_path = "src//ALL_CSV//EPSON_products.csv";
         currentLine="";
         try{
             file_content = new BufferedReader(new FileReader(file_path));
@@ -212,7 +212,7 @@ public class ConfigureBusiness {
         MasterOrderList masterorderlist = business.getMasterOrderList();
         CustomerProfile customerprofile4 = customerdirectory.findCustomer("Google");
         Order order1 = masterorderlist.newOrder(customerprofile4, salespersonprofile);
-        file_path="src\\ALL_CSV\\order1.csv";
+        file_path="src//ALL_CSV//order1.csv";
         Product p = null;
         currentLine="";
         int paidprice;
@@ -249,7 +249,7 @@ public class ConfigureBusiness {
 //        OrderItem oi8 = order1.newOrderItem(products1p8, 50000, 2);
 
        Order order12 = masterorderlist.newOrder(customerprofile4, salespersonprofile);
-       file_path="src\\ALL_CSV\\order2.csv";
+       file_path="src//ALL_CSV//order2.csv";
        p = null;
        currentLine="";     
        try{
@@ -284,7 +284,7 @@ public class ConfigureBusiness {
 //        OrderItem oi18 = order1.newOrderItem(products1p8, 40000, 2);
 
         Order order13 = masterorderlist.newOrder(customerprofile4, salespersonprofile);
-        file_path="src\\ALL_CSV\\order3.csv";
+        file_path="src//ALL_CSV//order3.csv";
         p = null;
         currentLine="";     
         try{
@@ -335,11 +335,17 @@ public class ConfigureBusiness {
         
         //=============== Define markets and channels...
 
-        Market teenmarket = mc.newMarket("Teenagers");
+         Market teenmarket = mc.newMarket("Teenagers");
         Market teenmarket2 = mc.newMarket("College Grads");
+        Market teenmarket3 = mc.newMarket("Millennial");
+        Market teenmarket4 = mc.newMarket("Seniors");
+        Market teenmarket5 = mc.newMarket("Z Generation");
 
-        Channel tvchannel = channelCatalog.newChannel("tv");
-        Channel webchannel = channelCatalog.newChannel("web");
+        Channel tvchannel = channelCatalog.newChannel("TV");
+        Channel webchannel = channelCatalog.newChannel("Internet");
+         Channel mobilechannel = channelCatalog.newChannel("Mobile App");
+        Channel radiochannel = channelCatalog.newChannel("Radio");
+
 
         teenmarket.addValidChannel(webchannel);
         teenmarket.addValidChannel(tvchannel);
@@ -352,10 +358,8 @@ public class ConfigureBusiness {
 
         SolutionOffer solutiontvteen = solutionoffercatalog.newSolutionOffer(tvchannelteenmarket);
         
-        Product products2p1 = getProductFromProductName(suplierdirectory, "Scanner 13 1");
+        Product products2p1 = getProductFromProductName(suplierdirectory, "Scanner 13  1");
         Product products2p2 = getProductFromProductName(suplierdirectory, "Scanner 14");
-        System.out.println("product ->" + products2p1);
-        System.out.println("product ->" + products2p2);
         
         solutiontvteen.addProduct(products2p2);
         solutiontvteen.addProduct(products2p1);

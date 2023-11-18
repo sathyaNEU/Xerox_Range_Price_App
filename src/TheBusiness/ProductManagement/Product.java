@@ -30,6 +30,20 @@ public class Product {
         orderitems = new ArrayList();
         
     }
+
+    public void setFloorPrice(int floorPrice) {
+        this.floorPrice = floorPrice;
+    }
+
+    public void setCeilingPrice(int ceilingPrice) {
+        this.ceilingPrice = ceilingPrice;
+    }
+
+    public void setTargetPrice(int targetPrice) {
+        this.targetPrice = targetPrice;
+    }
+        
+        
     public Product(String n, int fp, int cp, int tp) {
         name = n;
         floorPrice = fp;
@@ -43,6 +57,10 @@ public class Product {
         targetPrice = tp;
         return this; //returns itself
     }
+       public void removeOrderItem(OrderItem orderItem){
+       this.orderitems.remove(orderItem);
+       }
+       
     public int getTargetPrice() {return targetPrice;}
     public void addOrderItem(OrderItem oi){     
         orderitems.add(oi);

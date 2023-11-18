@@ -24,6 +24,10 @@ public class Order {
     String status;
 
     public Order(){}
+
+    public ArrayList<OrderItem> getOrderitems() {
+        return orderitems;
+    }
     
     public Order(CustomerProfile cp) {
         orderitems = new ArrayList();
@@ -44,6 +48,10 @@ public class Order {
         orderitems.add(oi);
         return oi;
     }
+    public void deleteItem(OrderItem item) {
+        orderitems.remove(item);
+    }
+
     //order total is the sumer of the order item totals
     public int getOrderTotal() {
         int sum = 0;

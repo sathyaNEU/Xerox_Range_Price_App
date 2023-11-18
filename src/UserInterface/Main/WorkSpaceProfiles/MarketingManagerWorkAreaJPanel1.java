@@ -11,11 +11,14 @@
 package UserInterface.Main.WorkSpaceProfiles;
 
 import TheBusiness.Business.Business;
+import UserInterface.ManageTheBusiness.ManageChannelMarketJPanel;
+import UserInterface.ManageTheBusiness.ManagePriceJPanel;
 import UserInterface.ManageTheBusiness.ManageTheBusinessJPanel;
-import UserInterface.ProductManagement.ManageSuppliersJPanel;
-import javax.swing.JPanel;
+import UserInterface.ManageTheBusiness.PerformanceReportsJPanel;
 import UserInterface.ManageTheBusiness.ProductSolutionPanel;
+import UserInterface.ProductManagement.ManageSuppliersJPanel;
 import java.awt.CardLayout;
+import javax.swing.JPanel;
 
 /**
  *
@@ -23,7 +26,7 @@ import java.awt.CardLayout;
  */
 public class MarketingManagerWorkAreaJPanel1 extends javax.swing.JPanel {
 
-    javax.swing.JPanel CardSequencePanel;
+    JPanel CardSequencePanel;
     Business business;
 
     /**
@@ -48,7 +51,7 @@ public class MarketingManagerWorkAreaJPanel1 extends javax.swing.JPanel {
     private void initComponents() {
 
         jButton4 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
+        btnManageChannel = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -70,17 +73,17 @@ public class MarketingManagerWorkAreaJPanel1 extends javax.swing.JPanel {
             }
         });
 
-        jButton10.setBackground(new java.awt.Color(102, 153, 255));
-        jButton10.setFont(getFont());
-        jButton10.setForeground(new java.awt.Color(255, 255, 255));
-        jButton10.setText("Manage Channels");
-        jButton10.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton10.setMaximumSize(new java.awt.Dimension(200, 40));
-        jButton10.setMinimumSize(new java.awt.Dimension(20, 20));
-        jButton10.setPreferredSize(new java.awt.Dimension(240, 25));
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
+        btnManageChannel.setBackground(new java.awt.Color(102, 153, 255));
+        btnManageChannel.setFont(getFont());
+        btnManageChannel.setForeground(new java.awt.Color(255, 255, 255));
+        btnManageChannel.setText("Manage Channels");
+        btnManageChannel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnManageChannel.setMaximumSize(new java.awt.Dimension(200, 40));
+        btnManageChannel.setMinimumSize(new java.awt.Dimension(20, 20));
+        btnManageChannel.setPreferredSize(new java.awt.Dimension(240, 25));
+        btnManageChannel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+                btnManageChannelActionPerformed(evt);
             }
         });
 
@@ -116,7 +119,6 @@ public class MarketingManagerWorkAreaJPanel1 extends javax.swing.JPanel {
         jLabel1.setText("Marketing ");
 
         solutionBundleBtn.setBackground(new java.awt.Color(102, 153, 255));
-        solutionBundleBtn.setFont(getFont());
         solutionBundleBtn.setForeground(new java.awt.Color(255, 255, 255));
         solutionBundleBtn.setText("Manage Solution Bundle");
         solutionBundleBtn.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -141,7 +143,7 @@ public class MarketingManagerWorkAreaJPanel1 extends javax.swing.JPanel {
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(75, 75, 75)
-                            .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnManageChannel, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -157,14 +159,14 @@ public class MarketingManagerWorkAreaJPanel1 extends javax.swing.JPanel {
                 .addGap(76, 76, 76)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnManageChannel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(42, 42, 42)
+                .addGap(37, 37, 37)
                 .addComponent(solutionBundleBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(139, Short.MAX_VALUE))
+                .addContainerGap(144, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -175,51 +177,49 @@ public class MarketingManagerWorkAreaJPanel1 extends javax.swing.JPanel {
         ManageTheBusinessJPanel aos = new ManageTheBusinessJPanel(business, CardSequencePanel);
 
         CardSequencePanel.add("ManageVulns", aos);
-        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+        ((CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
 
     }//GEN-LAST:event_jButton4IdentifyResourceAssetsActionPerformed
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+    private void btnManageChannelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageChannelActionPerformed
         // TODO add your handling code here:
 
-        ManageSuppliersJPanel iet = new ManageSuppliersJPanel(business, CardSequencePanel);
+        
 
-        CardSequencePanel.add("FindResourceAsset", iet);
-        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+        ManageChannelMarketJPanel manageChannelMarketJPanel = new ManageChannelMarketJPanel(business, CardSequencePanel);
 
-    }//GEN-LAST:event_jButton10ActionPerformed
+        CardSequencePanel.add("ManageChannelMarketJPanel", manageChannelMarketJPanel);
+        ((CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+
+    }//GEN-LAST:event_btnManageChannelActionPerformed
 
     private void jButton6IdentifyEventsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6IdentifyEventsActionPerformed
-        // TODO add your handling code here:
-        CardSequencePanel.removeAll();
-        //    IdentifyEventTypes iet= new IdentifyEventTypes(businessunit, CardSequencePanel);
-
-        //    CardSequencePanel.add("IdentifyEventTypes", iet);
-        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
-        //((java.awt.CardLayout)CardSequencePanel.getLayout()).show(CardSequencePanel, "IdentifyEventTypes");
+         // TODO add your handling code here:
+      ManagePriceJPanel mpj = new ManagePriceJPanel(business, CardSequencePanel);
+      CardSequencePanel.add("ManagePriceJPanel", mpj);
+      ((CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
 }//GEN-LAST:event_jButton6IdentifyEventsActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         // TODO add your handling code here:
+        PerformanceReportsJPanel prj = new PerformanceReportsJPanel(business, CardSequencePanel);
+       CardSequencePanel.add("PerformanceReportsJPanel", prj);
+       ((CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
 
-        CardSequencePanel.removeAll();
-//        ManageIncidents aos = new  ManageIncidents(businessunit, CardSequencePanel);
-        // aos.setAgenda(businessunit.getRiskManagementAgenda());
-//        CardSequencePanel.add("RiskAgendaObjectives", aos);
-        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+        
 }//GEN-LAST:event_jButton11ActionPerformed
 
     private void solutionBundleBtnIdentifyEventsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_solutionBundleBtnIdentifyEventsActionPerformed
-        // TODO add your handling code here:
+             // TODO add your handling code here:
         ProductSolutionPanel productSolutionBundleJPanel = new ProductSolutionPanel(this.business,this.CardSequencePanel);
         this.CardSequencePanel.add("productSolutionBundleJPanel",productSolutionBundleJPanel);
         ((CardLayout)this.CardSequencePanel.getLayout()).next(CardSequencePanel);
-                
+
     }//GEN-LAST:event_solutionBundleBtnIdentifyEventsActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton10;
+    private javax.swing.JButton btnManageChannel;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;

@@ -51,6 +51,7 @@ public class ManagePriceJPanel extends javax.swing.JPanel {
         cmbSupplier = new javax.swing.JComboBox();
         lblSupplier = new javax.swing.JLabel();
         btnEditProductDetails = new javax.swing.JButton();
+        btnRefresh = new javax.swing.JButton();
 
         priceTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -80,13 +81,19 @@ public class ManagePriceJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnRefresh.setText("Refresh Table");
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnEditProductDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                             .addGap(26, 26, 26)
@@ -95,7 +102,12 @@ public class ManagePriceJPanel extends javax.swing.JPanel {
                             .addComponent(cmbSupplier, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
                             .addGap(54, 54, 54)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 523, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 523, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(76, 76, 76)
+                        .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnEditProductDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(50, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -108,7 +120,9 @@ public class ManagePriceJPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnEditProductDetails)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEditProductDetails)
+                    .addComponent(btnRefresh))
                 .addGap(205, 205, 205))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -127,19 +141,17 @@ public class ManagePriceJPanel extends javax.swing.JPanel {
             return;
         }
        Product product = (Product) priceTable.getValueAt(selectedRowIndex, 0);
-////        Supplier supplier = (Supplier) cmbSupplier.getSelectedItem();
-//        ViewProductDetailJPanel1 vpj = new ViewProductDetailJPanel1(business,CardSequencePanel, product);
-//        CardSequencePanel.add("ViewProductDetailJPanel1", vpj);
-//        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
-
-
- CardSequencePanel.removeAll();
-
-        ViewProductDetailJPanel viewProductDetailJPanel = new ViewProductDetailJPanel(business,CardSequencePanel, product);
-
-        CardSequencePanel.add("ViewProductDetailJPanel", viewProductDetailJPanel);
+        ViewProductDetailJPanel vpj = new ViewProductDetailJPanel(business,CardSequencePanel, product);
+        CardSequencePanel.add("ViewProductDetailJPanel", vpj);
         ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+
+   
     }//GEN-LAST:event_btnEditProductDetailsActionPerformed
+
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        // TODO add your handling code here:
+        populateProduct();
+    }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void populateTable() {
         cmbSupplier.removeAllItems();
@@ -159,7 +171,7 @@ public class ManagePriceJPanel extends javax.swing.JPanel {
         
         for(Product p : selectedSupplier.getProductCatalog().getProductList()){
             Object row[] = new Object[4];
-            row[0] = p.getName();
+            row[0] = p;
             row[1] = p.getFloorPrice();
             row[2] = p.getCeilingPrice();
             row[3] = p.getTargetPrice();
@@ -169,6 +181,7 @@ public class ManagePriceJPanel extends javax.swing.JPanel {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditProductDetails;
+    private javax.swing.JButton btnRefresh;
     private javax.swing.JComboBox cmbSupplier;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblSupplier;

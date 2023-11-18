@@ -13,6 +13,7 @@ import TheBusiness.ProductManagement.Product;
 import TheBusiness.Supplier.Supplier;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -27,15 +28,16 @@ public class ManageTheBusinessJPanel extends javax.swing.JPanel {
     Business business;
     Supplier selectedsupplier;
     Product selectedproduct;
-
+    CustomerProfile selectedCustomerProfile;
+ 
     public ManageTheBusinessJPanel(Business bz, JPanel jp) {
-        CardSequencePanel = jp;
-        this.business = bz;
         initComponents();
-        marketCombo();
+        this.business = bz;
         custCombo();
+                CardSequencePanel = jp;
+        this.selectedCustomerProfile = (CustomerProfile)custBox.getSelectedItem();
+        marketCombo();
         populateTable();
-
     }
 
     /**
@@ -147,7 +149,9 @@ public class ManageTheBusinessJPanel extends javax.swing.JPanel {
 
     private void custBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_custBoxActionPerformed
         // TODO add your handling code here:
-        //populateProductTable();
+        //populateProductTable();      
+        this.selectedCustomerProfile = (CustomerProfile) custBox.getSelectedItem();
+        populateTable();
     }//GEN-LAST:event_custBoxActionPerformed
 
     private void marketBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_marketBoxActionPerformed
@@ -158,19 +162,22 @@ public class ManageTheBusinessJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         //Supplier supplier = (Supplier) cmbSupplier.getSelectedItem();
         CustomerProfile customerProfile = (CustomerProfile) custBox.getSelectedItem();
-        Market m = (Market) marketBox.getSelectedItem();
-
-        boolean isExists = false;
-        for (Market market : customerProfile.getMarkets()) {
-            if (market.toString().equals(m.toString())) {
-                isExists = true;
-                JOptionPane.showMessageDialog(this, "Market already assigned", "ERROR", JOptionPane.ERROR_MESSAGE);
-                return;
+          Market m = (Market) marketBox.getSelectedItem();
+          
+ 
+       
+            boolean isExists=false;
+            if(customerProfile.getMarkets()!=null)
+            for(Market market:customerProfile.getMarkets()){
+                if(market.toString().equals(m.toString())){
+                  isExists=true;
+                  JOptionPane.showMessageDialog(this, "Market already assigned","ERROR", JOptionPane.ERROR_MESSAGE);
+                  return;
+                  }
             }
-
-        }
-        if (isExists == false) {
+        if(isExists==false){
             customerProfile.addMarketToCustomer(m);
+            populateTable();
         }
     }//GEN-LAST:event_addBtnActionPerformed
 
@@ -190,18 +197,16 @@ public class ManageTheBusinessJPanel extends javax.swing.JPanel {
     }
 
     private void populateTable() {
-//        CustomerProfile customerProfile = (CustomerProfile) custBox.getSelectedItem();
-//          Market m = (Market) marketBox.getSelectedItem();
-//        DefaultTableModel dtm = (DefaultTableModel)custTable.getModel();
-//        dtm.setRowCount(0);
-//       for(CustomerProfile customerProfile:){
-//            Object[] obj = new Object[2];
-//            obj[0] = customerProfile;
-//            obj[1] = customerProfile.getMarkets();
-//            dtm.addRow(obj);
-//        }
-
+        DefaultTableModel dtm = (DefaultTableModel)custTable.getModel();
+        dtm.setRowCount(0);
+       if(selectedCustomerProfile!=null)
+       for(Market market : this.selectedCustomerProfile.getMarkets()){
+            Object[] obj = new Object[1];
+            obj[0] = market;
+            dtm.addRow(obj);
+        }
     }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Back;
     private javax.swing.JButton Next;

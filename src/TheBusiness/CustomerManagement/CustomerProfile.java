@@ -26,6 +26,7 @@ public class CustomerProfile extends Profile {
         super(p);
         person = p;
         orders = new ArrayList();
+        markets = new ArrayList<>();
 
     }
 

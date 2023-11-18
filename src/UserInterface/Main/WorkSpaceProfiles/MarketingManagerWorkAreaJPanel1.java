@@ -14,7 +14,9 @@ import TheBusiness.Business.Business;
 import UserInterface.ManageTheBusiness.ManageChannelMarketJPanel;
 import UserInterface.ManageTheBusiness.ManagePriceJPanel;
 import UserInterface.ManageTheBusiness.ManageTheBusinessJPanel;
+import UserInterface.ManageTheBusiness.PerformanceReportsJPanel;
 import UserInterface.ProductManagement.ManageSuppliersJPanel;
+import java.awt.CardLayout;
 import javax.swing.JPanel;
 
 /**
@@ -23,7 +25,7 @@ import javax.swing.JPanel;
  */
 public class MarketingManagerWorkAreaJPanel1 extends javax.swing.JPanel {
 
-    javax.swing.JPanel CardSequencePanel;
+    JPanel CardSequencePanel;
     Business business;
 
     /**
@@ -157,19 +159,19 @@ public class MarketingManagerWorkAreaJPanel1 extends javax.swing.JPanel {
         ManageTheBusinessJPanel aos = new ManageTheBusinessJPanel(business, CardSequencePanel);
 
         CardSequencePanel.add("ManageVulns", aos);
-        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+        ((CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
 
     }//GEN-LAST:event_jButton4IdentifyResourceAssetsActionPerformed
 
     private void btnManageChannelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageChannelActionPerformed
         // TODO add your handling code here:
 
-        CardSequencePanel.removeAll();
+        
 
         ManageChannelMarketJPanel manageChannelMarketJPanel = new ManageChannelMarketJPanel(business, CardSequencePanel);
 
         CardSequencePanel.add("ManageChannelMarketJPanel", manageChannelMarketJPanel);
-        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+        ((CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
 
     }//GEN-LAST:event_btnManageChannelActionPerformed
 
@@ -177,17 +179,16 @@ public class MarketingManagerWorkAreaJPanel1 extends javax.swing.JPanel {
          // TODO add your handling code here:
       ManagePriceJPanel mpj = new ManagePriceJPanel(business, CardSequencePanel);
       CardSequencePanel.add("ManagePriceJPanel", mpj);
-      ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+      ((CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
 }//GEN-LAST:event_jButton6IdentifyEventsActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         // TODO add your handling code here:
+        PerformanceReportsJPanel prj = new PerformanceReportsJPanel(business, CardSequencePanel);
+       CardSequencePanel.add("PerformanceReportsJPanel", prj);
+       ((CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
 
-        CardSequencePanel.removeAll();
-//        ManageIncidents aos = new  ManageIncidents(businessunit, CardSequencePanel);
-        // aos.setAgenda(businessunit.getRiskManagementAgenda());
-//        CardSequencePanel.add("RiskAgendaObjectives", aos);
-        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+        
 }//GEN-LAST:event_jButton11ActionPerformed
 
 

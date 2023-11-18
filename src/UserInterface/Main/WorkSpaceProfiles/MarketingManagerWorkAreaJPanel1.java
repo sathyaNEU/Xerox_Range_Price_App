@@ -14,6 +14,8 @@ import TheBusiness.Business.Business;
 import UserInterface.ManageTheBusiness.ManageTheBusinessJPanel;
 import UserInterface.ProductManagement.ManageSuppliersJPanel;
 import javax.swing.JPanel;
+import UserInterface.ManageTheBusiness.ProductSolutionPanel;
+import java.awt.CardLayout;
 
 /**
  *
@@ -50,6 +52,7 @@ public class MarketingManagerWorkAreaJPanel1 extends javax.swing.JPanel {
         jButton6 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        solutionBundleBtn = new javax.swing.JButton();
 
         setForeground(new java.awt.Color(51, 51, 51));
 
@@ -112,6 +115,20 @@ public class MarketingManagerWorkAreaJPanel1 extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel1.setText("Marketing ");
 
+        solutionBundleBtn.setBackground(new java.awt.Color(102, 153, 255));
+        solutionBundleBtn.setFont(getFont());
+        solutionBundleBtn.setForeground(new java.awt.Color(255, 255, 255));
+        solutionBundleBtn.setText("Manage Solution Bundle");
+        solutionBundleBtn.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        solutionBundleBtn.setMaximumSize(new java.awt.Dimension(145, 40));
+        solutionBundleBtn.setMinimumSize(new java.awt.Dimension(20, 20));
+        solutionBundleBtn.setPreferredSize(new java.awt.Dimension(240, 25));
+        solutionBundleBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                solutionBundleBtnIdentifyEventsActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -119,6 +136,7 @@ public class MarketingManagerWorkAreaJPanel1 extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(101, 101, 101)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(solutionBundleBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -144,7 +162,9 @@ public class MarketingManagerWorkAreaJPanel1 extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(221, Short.MAX_VALUE))
+                .addGap(42, 42, 42)
+                .addComponent(solutionBundleBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(139, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -189,6 +209,14 @@ public class MarketingManagerWorkAreaJPanel1 extends javax.swing.JPanel {
         ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
 }//GEN-LAST:event_jButton11ActionPerformed
 
+    private void solutionBundleBtnIdentifyEventsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_solutionBundleBtnIdentifyEventsActionPerformed
+        // TODO add your handling code here:
+        ProductSolutionPanel productSolutionBundleJPanel = new ProductSolutionPanel(this.business,this.CardSequencePanel);
+        this.CardSequencePanel.add("productSolutionBundleJPanel",productSolutionBundleJPanel);
+        ((CardLayout)this.CardSequencePanel.getLayout()).next(CardSequencePanel);
+                
+    }//GEN-LAST:event_solutionBundleBtnIdentifyEventsActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton10;
@@ -196,6 +224,7 @@ public class MarketingManagerWorkAreaJPanel1 extends javax.swing.JPanel {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton solutionBundleBtn;
     // End of variables declaration//GEN-END:variables
 
 }

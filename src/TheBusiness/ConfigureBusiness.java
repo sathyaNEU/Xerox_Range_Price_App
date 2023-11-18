@@ -352,8 +352,10 @@ public class ConfigureBusiness {
 
         SolutionOffer solutiontvteen = solutionoffercatalog.newSolutionOffer(tvchannelteenmarket);
         
-        Product products2p1 = getProductFromProductName(suplierdirectory, "Scanner 13  1");
+        Product products2p1 = getProductFromProductName(suplierdirectory, "Scanner 13 1");
         Product products2p2 = getProductFromProductName(suplierdirectory, "Scanner 14");
+        System.out.println("product ->" + products2p1);
+        System.out.println("product ->" + products2p2);
         
         solutiontvteen.addProduct(products2p2);
         solutiontvteen.addProduct(products2p1);

@@ -64,5 +64,27 @@ public class SolutionOffer {
         ad = a;
     }
 
+    public ArrayList<Product> getProducts() {
+        return products;
+    }
+    
+    @Override
+    public String toString(){
+        String solutionString="";
+        for(Product product : this.products){
+         solutionString =  solutionString.concat(product.toString()).concat(",");
+        }
+        //System.out.println(solutionString.substring(0, solutionString.length()-1));
+        //return solutionString.substring(0, solutionString.length()-1);
+        return solutionString.substring(0, solutionString.length()-1);    }
+
+    public MarketChannelAssignment getMarketchannelcomb() {
+        return marketchannelcomb;
+    }
+
+    public void setMarketchannelcomb(MarketChannelAssignment marketchannelcomb) {
+        this.marketchannelcomb = marketchannelcomb;
+    }
+
     
 }

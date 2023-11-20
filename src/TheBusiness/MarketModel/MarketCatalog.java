@@ -26,12 +26,17 @@ public class MarketCatalog {
         markets = new ArrayList();
 
     }
+    
 
     public Market newMarket(String m) {
 
         Market market = new Market(m);
         markets.add(market);
         return market;
+    }
+    
+    public boolean findMarketFromMarketCatalog(Market market){
+        return this.markets.contains(market);
     }
 
 }

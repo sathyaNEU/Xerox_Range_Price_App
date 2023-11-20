@@ -44,6 +44,10 @@ public class MasterSolutionOrderList {
         return sum;
 
     }
+
+    public ArrayList<SolutionOrder> getSolutionorderlist() {
+        return solutionorderlist;
+    }
     public int getRevenueByChannel(Channel c) {
         int sum = 0;
         for(SolutionOrder so: solutionorderlist){

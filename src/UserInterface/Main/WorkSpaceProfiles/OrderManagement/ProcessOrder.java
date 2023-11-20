@@ -45,8 +45,7 @@ public class ProcessOrder extends javax.swing.JPanel {
 
         this.userProcessContainer = userProcessContainer;
         this.business = bz;
-        initComponents();
-       
+        initComponents();  
         customer = cp;
         salesperson = spp;
         salesPersonTextField.setText(salesperson.getPerson().toString());

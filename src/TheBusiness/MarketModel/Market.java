@@ -13,6 +13,10 @@ import java.util.ArrayList;
  */
 public class Market {
 
+    public ArrayList<Channel> getValidchannels() {
+        return validchannels;
+    }
+
     String name;
     ArrayList<Channel> validchannels;
     ArrayList<String> characteristics; //a way to describe in plain language what is that group

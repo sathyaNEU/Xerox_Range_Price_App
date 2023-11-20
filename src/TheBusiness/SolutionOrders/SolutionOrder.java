@@ -25,6 +25,14 @@ public class SolutionOrder {
         this.customerprofile = customerProfile;
 
     }
+
+    public SolutionOffer getSelectedsolutionoffer() {
+        return selectedsolutionoffer;
+    }
+
+    public CustomerProfile getCustomerprofile() {
+        return customerprofile;
+    }
     
     public int getSolutionPrice(){
         return selectedsolutionoffer.getSolutionPrice();

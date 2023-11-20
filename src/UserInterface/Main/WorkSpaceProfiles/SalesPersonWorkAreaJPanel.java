@@ -14,6 +14,7 @@ import TheBusiness.Business.Business;
 import TheBusiness.CustomerManagement.CustomerProfile;
 import TheBusiness.SalesManagement.SalesPersonProfile;
 import UserInterface.Main.WorkSpaceProfiles.OrderManagement.ManageSalesPersonOrders;
+import UserInterface.Main.WorkSpaceProfiles.OrderManagement.ManageSalesPersonOrdersJPanel;
 import UserInterface.Main.WorkSpaceProfiles.OrderManagement.ProcessOrder;
 import UserInterface.ManageTheBusiness.ManageChannelMarketJPanel;
 import UserInterface.Main.WorkSpaceProfiles.OrderManagement.ProcessOrderJPanel;
@@ -29,7 +30,6 @@ public class SalesPersonWorkAreaJPanel extends javax.swing.JPanel {
     javax.swing.JPanel CardSequencePanel;
     Business business;
     SalesPersonProfile salesperson;
-
     /**
      * Creates new form UnitRiskWorkArea
      *
@@ -186,15 +186,14 @@ public class SalesPersonWorkAreaJPanel extends javax.swing.JPanel {
 
         } else {
             CustomerProfile selectedcustomer = business.getCustomerDirectory().findCustomer(customername);
-
-//        ProcessOrder aos = new ProcessOrder(business, selectedcustomer ,salesperson, CardSequencePanel);
-//
-//        CardSequencePanel.add("ManageVulns", aos);
-//        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+            if(selectedcustomer!=null){
             ProcessOrderJPanel processOrderJPanel = new ProcessOrderJPanel(business, selectedcustomer, salesperson, CardSequencePanel);
-
             CardSequencePanel.add("ProcessOrderJPanel", processOrderJPanel);
             ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Invalid Customer Profile", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
         }
 
 //ProcessOrder processOrder = new ProcessOrder(business,salesperson, CardSequencePanel);
@@ -216,11 +215,23 @@ public class SalesPersonWorkAreaJPanel extends javax.swing.JPanel {
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
+String customername = customerNameTextField.getText();
+//        if (customername.isEmpty()) return;
+        if (customername.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter customer name.", "ERROR", JOptionPane.ERROR_MESSAGE);
 
-        ManageSalesPersonOrders iet = new ManageSalesPersonOrders(business, CardSequencePanel);
-
-        CardSequencePanel.add("FindResourceAsset", iet);
-        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+        } 
+        else {
+            CustomerProfile selectedcustomer = business.getCustomerDirectory().findCustomer(customername);
+            if (selectedcustomer != null) {
+                ManageSalesPersonOrdersJPanel manageSalesPersonOrdersJPanel = new ManageSalesPersonOrdersJPanel(business, CardSequencePanel);
+                CardSequencePanel.add("FindResourceAsset", manageSalesPersonOrdersJPanel);
+                ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+            } else {
+                JOptionPane.showMessageDialog(this, "Invalid Customer Profile", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
 
     }//GEN-LAST:event_jButton10ActionPerformed
 

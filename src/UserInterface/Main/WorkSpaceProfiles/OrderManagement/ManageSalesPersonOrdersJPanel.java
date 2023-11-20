@@ -7,6 +7,7 @@ package UserInterface.Main.WorkSpaceProfiles.OrderManagement;
 import TheBusiness.Business.Business;
 import TheBusiness.CustomerManagement.CustomerProfile;
 import TheBusiness.SalesManagement.SalesPersonProfile;
+import UserInterface.ManageTheBusiness.AllSolutionOrdersJPanel;
 import UserInterface.ManageTheBusiness.B2BsolutionOrdersJPanel;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
@@ -15,7 +16,7 @@ import javax.swing.JPanel;
  *
  * @author thivya
  */
-public class ProcessOrderJPanel extends javax.swing.JPanel {
+public class ManageSalesPersonOrdersJPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form ProcessOrderJPanel
@@ -24,7 +25,7 @@ public class ProcessOrderJPanel extends javax.swing.JPanel {
     SalesPersonProfile salesperson;
     JPanel CardSequencePanel;
     CustomerProfile selectedcustomer;
-    public ProcessOrderJPanel(Business business, CustomerProfile selectedcustomer, SalesPersonProfile salesperson, JPanel CardSequencePanel) {
+    public ManageSalesPersonOrdersJPanel(Business business, JPanel CardSequencePanel) {
         initComponents();
         this.business=business;
         this.CardSequencePanel=CardSequencePanel;
@@ -54,14 +55,14 @@ public class ProcessOrderJPanel extends javax.swing.JPanel {
 
         leftPanel.setBackground(new java.awt.Color(0, 153, 153));
 
-        btnNormalOrder.setText("Normal Order");
+        btnNormalOrder.setText("Normal Order Sales");
         btnNormalOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNormalOrderActionPerformed(evt);
             }
         });
 
-        btnSolutionOrder.setText("Solution Order");
+        btnSolutionOrder.setText("Solution Order Sales");
         btnSolutionOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSolutionOrderActionPerformed(evt);
@@ -85,8 +86,8 @@ public class ProcessOrderJPanel extends javax.swing.JPanel {
                 .addGap(52, 52, 52)
                 .addComponent(btnNormalOrder)
                 .addGap(61, 61, 61)
-                .addComponent(btnSolutionOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(471, Short.MAX_VALUE))
+                .addComponent(btnSolutionOrder)
+                .addContainerGap(416, Short.MAX_VALUE))
         );
         leftPanelLayout.setVerticalGroup(
             leftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -119,17 +120,16 @@ public class ProcessOrderJPanel extends javax.swing.JPanel {
 
     private void btnSolutionOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolutionOrderActionPerformed
         // TODO add your handling code here:
-        B2BsolutionOrdersJPanel b2BsolutionOrdersJPanel = new B2BsolutionOrdersJPanel(this.business, this.userProcessContainer, salesperson, selectedcustomer);
-        this.userProcessContainer.add("b2BsolutionOrdersJPanel",b2BsolutionOrdersJPanel);
+        AllSolutionOrdersJPanel allSolutionOrdersJPanel = new AllSolutionOrdersJPanel(business, userProcessContainer);
+       this.userProcessContainer.add("allSolutionOrdersJPanel",allSolutionOrdersJPanel);
         ((CardLayout)this.userProcessContainer.getLayout()).next(this.userProcessContainer);
     }//GEN-LAST:event_btnSolutionOrderActionPerformed
 
     private void btnNormalOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNormalOrderActionPerformed
         // TODO add your handling code here:
-        ProcessOrder processOrder = new ProcessOrder(business,salesperson,userProcessContainer,selectedcustomer);
-         this.userProcessContainer.add("ProcessOrder",processOrder);
-         CardLayout cardLayout = (CardLayout)userProcessContainer.getLayout();
-         cardLayout.next(userProcessContainer);
+        ManageSalesPersonOrders manageSalesPersonOrders = new ManageSalesPersonOrders(business, leftPanel);
+        this.userProcessContainer.add("manageSalesPersonOrders",manageSalesPersonOrders);
+        ((CardLayout)this.userProcessContainer.getLayout()).next(this.userProcessContainer);
     }//GEN-LAST:event_btnNormalOrderActionPerformed
 
     private void BackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackActionPerformed

@@ -215,23 +215,11 @@ public class SalesPersonWorkAreaJPanel extends javax.swing.JPanel {
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
-String customername = customerNameTextField.getText();
-//        if (customername.isEmpty()) return;
-        if (customername.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter customer name.", "ERROR", JOptionPane.ERROR_MESSAGE);
+ ManageSalesPersonOrders iet = new ManageSalesPersonOrders(business, CardSequencePanel);
 
-        } 
-        else {
-            CustomerProfile selectedcustomer = business.getCustomerDirectory().findCustomer(customername);
-            if (selectedcustomer != null) {
-                ManageSalesPersonOrdersJPanel manageSalesPersonOrdersJPanel = new ManageSalesPersonOrdersJPanel(business, CardSequencePanel);
-                CardSequencePanel.add("FindResourceAsset", manageSalesPersonOrdersJPanel);
-                ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
-            } else {
-                JOptionPane.showMessageDialog(this, "Invalid Customer Profile", "ERROR", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-        }
+        CardSequencePanel.add("FindResourceAsset", iet);
+        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+
 
     }//GEN-LAST:event_jButton10ActionPerformed
 

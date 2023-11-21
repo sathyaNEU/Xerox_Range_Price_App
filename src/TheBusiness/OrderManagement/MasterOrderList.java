@@ -27,6 +27,11 @@ public class MasterOrderList {
         orders.add(order);
   
     }
+
+    public ArrayList<Order> getOrders() {
+        return orders;
+    }
+    
     
     public Order newOrder(CustomerProfile cp, SalesPersonProfile spp){
         Order o= new Order(cp, spp);

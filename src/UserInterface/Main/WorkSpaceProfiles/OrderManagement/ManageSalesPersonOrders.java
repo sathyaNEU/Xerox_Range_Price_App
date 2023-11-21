@@ -7,6 +7,7 @@ package UserInterface.Main.WorkSpaceProfiles.OrderManagement;
 
 import UserInterface.ProductManagement.*;
 import TheBusiness.Business.Business;
+import TheBusiness.OrderManagement.Order;
 import TheBusiness.ProductManagement.Product;
 import TheBusiness.ProductManagement.ProductCatalog;
 import TheBusiness.ProductManagement.ProductSummary;
@@ -33,10 +34,23 @@ public class ManageSalesPersonOrders extends javax.swing.JPanel {
         CardSequencePanel = jp;
         this.business = bz;
         initComponents();
- 
+         populateTable();
 
     }
-
+ private void populateTable() {
+        DefaultTableModel dtm = (DefaultTableModel) SupplierCatalogTable.getModel();
+        dtm.setRowCount(0);
+        for (Order order : business.getMasterOrderList().getOrders()) {
+            
+            Object[] row = new Object[4];
+            row[0] = order;
+            row[1] = order.getStatus();
+            row[2] = order.getOrderTotal();
+            row[3] = order.getCustomer();
+           
+            dtm.addRow(row);
+            }
+        }
  
     /**
      * This method is called from within the constructor to initialize the form.

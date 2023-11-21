@@ -417,6 +417,7 @@ public class ProcessOrder extends javax.swing.JPanel {
         cleanUpItemsTable();
         txtSalesPrice.setText("");
         spnQuantity.setValue(0);
+         currentOrder.Submit();
         
         
 //        currentOrder.Submit();

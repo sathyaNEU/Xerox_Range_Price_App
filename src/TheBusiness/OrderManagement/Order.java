@@ -52,6 +52,14 @@ public class Order {
         orderitems.remove(item);
     }
 
+    public CustomerProfile getCustomer() {
+        return customer;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
     //order total is the sumer of the order item totals
     public int getOrderTotal() {
         int sum = 0;

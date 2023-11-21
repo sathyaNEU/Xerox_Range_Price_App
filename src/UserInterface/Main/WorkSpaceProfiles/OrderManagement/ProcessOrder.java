@@ -405,19 +405,22 @@ public class ProcessOrder extends javax.swing.JPanel {
 //        currentOrder.CancelOrder();
 //        CardSequencePanel.remove(this);
 //        ((java.awt.CardLayout) CardSequencePanel.getLayout()).next(CardSequencePanel);
+        currentOrder.CancelOrder();
 
     }//GEN-LAST:event_BackActionPerformed
 
     private void NextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NextActionPerformed
         // TODO add your handling code here:
         
-        mol.AddNewOrder(currentOrder);
+        for(OrderItem oi: currentOrder.getOrderitems()){
+            System.out.println("Product:" + oi.toString());}
+                 currentOrder.Submit();
         JOptionPane.showMessageDialog(this, "Order placed successfully");
 
         cleanUpItemsTable();
         txtSalesPrice.setText("");
         spnQuantity.setValue(0);
-         currentOrder.Submit();
+
         
         
 //        currentOrder.Submit();

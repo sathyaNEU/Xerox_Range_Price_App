@@ -209,6 +209,7 @@ class ConfigureABusiness {
         MasterOrderList masterorderlist = business.getMasterOrderList();
         CustomerProfile customerprofile4 = customerdirectory.findCustomer("Google");
         Order order1 = masterorderlist.newOrder(customerprofile4, salespersonprofile);
+        order1.Submit();
         file_path="src//ALL_CSV//order1.csv";
         Product p = null;
         currentLine="";
@@ -246,6 +247,7 @@ class ConfigureABusiness {
 //        OrderItem oi8 = order1.newOrderItem(products1p8, 50000, 2);
 
        Order order12 = masterorderlist.newOrder(customerprofile4, salespersonprofile);
+        order12.Submit();
        file_path="src//ALL_CSV//order2.csv";
        p = null;
        currentLine="";     
@@ -281,6 +283,7 @@ class ConfigureABusiness {
 //        OrderItem oi18 = order1.newOrderItem(products1p8, 40000, 2);
 
         Order order13 = masterorderlist.newOrder(customerprofile4, salespersonprofile);
+         order13.Submit();
         file_path="src//ALL_CSV//order3.csv";
         p = null;
         currentLine="";     

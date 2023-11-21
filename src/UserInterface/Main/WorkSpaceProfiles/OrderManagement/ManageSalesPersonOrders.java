@@ -43,6 +43,7 @@ public class ManageSalesPersonOrders extends javax.swing.JPanel {
         for (Order order : business.getMasterOrderList().getOrders()) {
             
             Object[] row = new Object[4];
+            System.out.println(order);
             row[0] = order;
             row[1] = order.getStatus();
             row[2] = order.getOrderTotal();
@@ -116,7 +117,7 @@ public class ManageSalesPersonOrders extends javax.swing.JPanel {
 
         jScrollPane2.setViewportView(jScrollPane1);
 
-        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 123, 580, 100));
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 123, 680, 100));
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         jLabel2.setText("Browse Orders");
